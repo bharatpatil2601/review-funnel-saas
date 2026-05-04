@@ -19,6 +19,15 @@ const config = {
       ? process.env.CORS_ORIGINS.split(',').map((o) => o.trim())
       : '*',
   },
+
+  smtp: {
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.SMTP_PORT, 10) || 465,
+    secure: process.env.SMTP_SECURE === 'true' || true,
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+    receiver: 'digitaleurekamedia@gmail.com',
+  },
 };
 
 // Validate critical env vars at boot

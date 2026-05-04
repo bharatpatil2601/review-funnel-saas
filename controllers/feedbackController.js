@@ -4,6 +4,7 @@
 
 const { v4: uuidv4 } = require('uuid');
 const { getClient } = require('../services/clientService');
+const { sendFeedbackEmail } = require('../services/emailService');
 const store = require('../store');
 
 /**
@@ -44,6 +45,11 @@ function handleFeedback(req, res) {
     store.incrementFeedbacks(clientId);
 
     console.log(`[FEEDBACK] Stored | client=${clientId} name="${entry.name}" phone=${entry.phone}`);
+
+    // ---- Send email for low ratings (<= 3) ----
+    if (entry.rating !== null && entry.rating <= 3) {
+      sendFeedbackEmail(entry); // Async call in background
+    }
 
     return res.status(201).json({
       success: true,
