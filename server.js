@@ -9,20 +9,20 @@ const routes = require('./routes');
 
 const app = express();
 
-// ---------- Middleware ----------
+// ---------- CORS & Middleware ----------
+const corsOptions = {
+  origin: config.nodeEnv === 'production' ? config.cors.origins : '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-
-// CORS — restrict to allowed origins in production
-app.use(
-  cors({
-    origin: config.nodeEnv === 'production' ? config.cors.origins : '*',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
 
 // Request logger
 app.use((req, _res, next) => {
