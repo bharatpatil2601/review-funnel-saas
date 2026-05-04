@@ -15,9 +15,9 @@ const clients = new Map();
 
 clients.set('clinic1', {
   id: 'clinic1',
-  businessName: 'Dr. Glow Skin & Hair Clinic',
+  businessName: 'Skin & Scalps Clinic',
   keywords: ['skin specialist in Wakad', 'best dermatologist Pune', 'acne treatment Wakad'],
-  googleReviewLink: 'https://g.page/r/your-clinic1-review-link/review',
+  googleReviewLink: 'https://g.page/r/CZ0-LGgwIT_QEBM/review',
 });
 
 clients.set('clinic2', {
